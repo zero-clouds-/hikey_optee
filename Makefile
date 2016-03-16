@@ -3,7 +3,7 @@
 # 'make help' for details
 
 SHELL = /bin/bash
-CURL = curl -L
+CURL = wget
 
 ifeq ($(V),1)
   Q :=
@@ -141,7 +141,7 @@ endif
 
 downloads/$(AARCH64_GCC_TARBALL):
 	$(ECHO) '  CURL    $@'
-	$(Q)$(CURL) $(AARCH64_GCC_URL) -o $@
+	$(Q)$(CURL) $(AARCH64_GCC_URL) -O $@
 
 toolchains/$(AARCH64_GCC_DIR): downloads/$(AARCH64_GCC_TARBALL)
 	$(ECHO) '  TAR     $@'
@@ -159,7 +159,7 @@ distclean-aarch64-gcc:
 
 downloads/$(ARM_GCC_TARBALL):
 	$(ECHO) '  CURL    $@'
-	$(Q)$(CURL) $(ARM_GCC_URL) -o $@
+	$(Q)$(CURL) $(ARM_GCC_URL) -O $@
 
 toolchains/$(ARM_GCC_DIR): downloads/$(ARM_GCC_TARBALL)
 	$(ECHO) '  TAR     $@'
@@ -177,7 +177,7 @@ distclean-arm-gcc:
 
 downloads/$(NDK_TARBALL):
 	$(ECHO) '  CURL    $@'
-	$(Q)$(CURL) $(NDK_URL) -o $@
+	$(Q)$(CURL) $(NDK_URL) -O $@
 	$(ECHO) '  CHMOD   $@'
 	$(Q)chmod +x $@
 
@@ -392,7 +392,7 @@ clean-linux-dtb:
 define make-dl-rule
 $(1):
 	$(ECHO) '  CURL    $(1)'
-	$(Q)$(CURL) $(2)/$(notdir $(1)) -o $(1)
+	$(Q)$(CURL) $(2)/$(notdir $(1)) -O $(1)
 
 cleaner-$(1):
 	$(ECHO) '  RM      $(1)'
@@ -430,7 +430,7 @@ build-images: $(images)
 
 downloads/aosp_kernel_config:
 	$(ECHO) '  CURL    $@'
-	$(Q)$(CURL) $(SNAP_AOSP_URL)/kernel_config -o $@
+	$(Q)$(CURL) $(SNAP_AOSP_URL)/kernel_config -O $@
 
 cleaner-aosp-kernel-config:
 	$(ECHO) '  RM      downloads/aosp_kernel_config'
